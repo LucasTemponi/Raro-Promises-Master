@@ -12,20 +12,5 @@
  * @returns 
  */
 export const chunk = (valores: number[], tamanho: number): number[][] => {
-  let i=0
-  let chunk:number[][] = []
-  const tamanhoValores:number = valores.length
-
-  while (i<tamanhoValores){
-      let temp:number[] = []
-      temp = valores.slice(i,i+tamanho)
-      chunk.push(temp)
-      if (i>tamanhoValores){
-          i+=(tamanhoValores-i)
-      }
-      else{
-          i+=tamanho
-      }
-  }
-  return chunk;
+  return null;
 };
