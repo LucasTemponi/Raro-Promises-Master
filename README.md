@@ -10,7 +10,7 @@ funçoes:
 - fromPairs.ts
 - uniq.t
 
-**`Dica:`** Sugiro que você comente todas as funções, exceto aquela que você está trabalhanAdo.
+**`Dica:`** Sugiro que você comente todas as funções, exceto aquela que você está trabalhando.
 
 ### 2. Promisificando um problema
 
