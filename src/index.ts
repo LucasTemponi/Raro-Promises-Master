@@ -3,7 +3,7 @@ import { chunk } from "./funcoes/chunk";
 import { compact } from "./funcoes/compact";
 import { fromPairs } from "./funcoes/fromPairs";
 import { uniq } from "./funcoes/uniq";
-import { consumirDaFila, escreveNaFila, leArquivo, zerarAquivo } from "./funcoes/fila";
+import { consumirDaFila, escreveNaFila,leArquivo, zerarAquivo } from "./funcoes/fila";
 
 
 function testChunk() {
@@ -97,10 +97,9 @@ async function testFila() {
     await escreveNaFila(mensagem);
   }
 
-  const mensagensEscritas = await leArquivo(() => {});
-  const todasMensagensEscritas = mensagensEscritas
-    .split('\n')
-    .every((mensagem, index) => mensagem === mensagens[index]);
+  const mensagensEscritas = await leArquivo();
+  console.log(mensagensEscritas);
+  const todasMensagensEscritas = mensagensEscritas.split('\n').every((mensagem, index) => mensagem === mensagens[index]);
 
   console.assert(todasMensagensEscritas, 'todas as mensagens devem ser escritas');
   for (const menssagem of mensagens) {
@@ -112,6 +111,6 @@ async function testFila() {
 
 testChunk();
 testCompact();
-testFromPairs();
-testUniq();
+//testFromPairs();
+//testUniq();
 testFila();
