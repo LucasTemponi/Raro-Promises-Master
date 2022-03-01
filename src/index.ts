@@ -4,7 +4,6 @@ import { compact } from "./funcoes/compact";
 import { fromPairs } from "./funcoes/fromPairs";
 import { uniq } from "./funcoes/uniq";
 import { consumirDaFila, escreveNaFila, leArquivo, zerarAquivo} from "./fila";
-import { resolve } from 'path';
 
 function testChunk() {
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -112,8 +111,8 @@ async function testFila() {
   }
 }
 
-// testChunk();
-// testCompact();
-// testFromPairs();
-// testUniq();
+testChunk();
+testCompact();
+testFromPairs();
+testUniq();
 testFila();

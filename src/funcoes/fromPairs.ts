@@ -9,5 +9,9 @@ import { KeyAndValue } from "../../types/keyAndValue";
  * @returns 
  */
 export const fromPairs = (args: KeyAndValue[]): Record<string, unknown> => {
-  return null;
+  let temp:Record<string, unknown>={}
+  args.forEach(dupla=> {
+    temp[dupla[0]] = dupla[1]    
+  })
+  return temp;
 };
