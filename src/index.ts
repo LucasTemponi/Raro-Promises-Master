@@ -3,8 +3,8 @@ import { chunk } from "./funcoes/chunk";
 import { compact } from "./funcoes/compact";
 import { fromPairs } from "./funcoes/fromPairs";
 import { uniq } from "./funcoes/uniq";
-import { consumirDaFila, escreveNaFila,leArquivo, zerarAquivo } from "./funcoes/fila";
-
+import { consumirDaFila, escreveNaFila, leArquivo, zerarAquivo} from "./fila";
+import { resolve } from 'path';
 
 function testChunk() {
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -79,6 +79,7 @@ function testUniq() {
 }
 
 async function testFila() {
+  
   await zerarAquivo();
   const mensagens = [
     'Lorem ipsum dolor sit amet',
@@ -98,19 +99,21 @@ async function testFila() {
   }
 
   const mensagensEscritas = await leArquivo();
-  console.log(mensagensEscritas);
-  const todasMensagensEscritas = mensagensEscritas.split('\n').every((mensagem, index) => mensagem === mensagens[index]);
+  const todasMensagensEscritas = mensagensEscritas
+    .split('\n')
+    .every((mensagem, index) => mensagem === mensagens[index]);
 
-  console.assert(todasMensagensEscritas, 'todas as mensagens devem ser escritas');
+  console.assert(todasMensagensEscritas, 'todas as mensagens devem ser escritas\n');
   for (const menssagem of mensagens) {
     const encontrada = await consumirDaFila();
-    console.log(encontrada);
-    console.assert(encontrada === menssagem, 'mensagem esperada não encontrada');
+    console.log(`Texto em mensagens\n\t${menssagem}\n\n`)
+    console.log(`Texto no arquivo\n\t${encontrada}\n\n`);
+    console.assert(encontrada === menssagem, 'mensagem esperada não encontrada\n');
   }
 }
 
-testChunk();
-testCompact();
-//testFromPairs();
-//testUniq();
+// testChunk();
+// testCompact();
+// testFromPairs();
+// testUniq();
 testFila();
