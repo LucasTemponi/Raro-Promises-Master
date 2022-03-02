@@ -2,7 +2,7 @@ import { writeFile, readFile } from 'fs/promises';
 import { text } from 'node:stream/consumers';
 import { resolve } from 'path';
 
-export const ARQUIVO_DE_FILA = resolve('..','files','fila.txt');
+const ARQUIVO_DE_FILA = `${resolve('.')}/files/fila.txt`;
 
 /**
  * Os métodos escritos abaixo implementam uma fila de mensagens escritas em
