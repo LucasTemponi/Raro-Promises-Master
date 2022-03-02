@@ -3,7 +3,7 @@ import { chunk } from "./funcoes/chunk";
 import { compact } from "./funcoes/compact";
 import { fromPairs } from "./funcoes/fromPairs";
 import { uniq } from "./funcoes/uniq";
-import { consumirDaFila, escreveNaFila, leArquivo, zerarAquivo} from "./fila";
+import { consumirDaFila, escreveNaFila, leArquivo, zerarAquivo} from "./funcoes/fila";
 
 function testChunk() {
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -105,8 +105,7 @@ async function testFila() {
   console.assert(todasMensagensEscritas, 'todas as mensagens devem ser escritas\n');
   for (const menssagem of mensagens) {
     const encontrada = await consumirDaFila();
-    console.log(`Texto em mensagens\n\t${menssagem}\n\n`)
-    console.log(`Texto no arquivo\n\t${encontrada}\n\n`);
+    console.log(`\n\t${encontrada}\n\n`);
     console.assert(encontrada === menssagem, 'mensagem esperada não encontrada\n');
   }
 }
