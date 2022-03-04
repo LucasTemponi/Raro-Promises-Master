@@ -11,7 +11,7 @@ export const uniq = <T>(args: T[]): T[] => {
   const temp: T[] = [];
   args.forEach((item)=>{
     if (temp.indexOf(item)<0){
-    temp.push(item)
+    temp.push(item);
     }
   })
   return temp;

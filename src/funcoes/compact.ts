@@ -8,14 +8,17 @@
  * 
  * @returns somente os itens definidos.
  */
- export const compact = (items: unknown[]): unknown[] => {
+//  export const compact = (items: unknown[]): unknown[] => {
 
-  let temp:unknown[] = []
-  items.forEach((item,index)=>{
-    if (!!item){
-      temp.push(item)
-    }
-  })    
-  return temp;
+//   let temp:unknown[] = []
+//   items.forEach((item,index)=>{
+//     if (!!item){
+//       temp.push(item);
+//     }
+//   })    
+//   return temp;
+// }
+
+export const compact = (items: unknown[]): unknown[] => {
+  return items.filter((item=>item));
 }
-
