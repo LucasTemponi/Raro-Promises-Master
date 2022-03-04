@@ -8,5 +8,11 @@
  * @returns somente os itens definidos.
  */
 export const uniq = <T>(args: T[]): T[] => {
-  return null;
+  const temp: T[] = [];
+  args.forEach((item)=>{
+    if (temp.indexOf(item)<0){
+    temp.push(item);
+    }
+  })
+  return temp;
 };

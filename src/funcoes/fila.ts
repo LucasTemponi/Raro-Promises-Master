@@ -1,4 +1,5 @@
-import { writeFile, readFile } from 'fs';
+import { writeFile, readFile } from 'fs/promises';
+import { text } from 'node:stream/consumers';
 import { resolve } from 'path';
 
 const ARQUIVO_DE_FILA = `${resolve('.')}/files/fila.txt`;
@@ -16,74 +17,69 @@ const ARQUIVO_DE_FILA = `${resolve('.')}/files/fila.txt`;
  * async/await.
  */
 
-export async function zerarAquivo(): Promise<void> {
-  return escreveArquivo('', () => {});
+ export async function zerarAquivo(): Promise<void> {
+   try{
+     await escreveArquivo('');
+   }
+   catch(err){
+     console.log(err);
+   }
 }
 
-export async function leArquivo(callback): Promise<string> {
-  readFile(ARQUIVO_DE_FILA, 'utf8', (err, resultado) => {
-    if (err) {
-      callback(err, null);
-    }
-
-    callback(null, resultado);
-  });
-
-  // reste return está presente somente para cumprir a saída de Promise<string>
-  return '';
+export async function escreveArquivo(texto: string): Promise<void> {
+  try{
+    await writeFile(ARQUIVO_DE_FILA,texto);
+  }
+  catch(err){
+      console.log(err);
+  }
 }
 
-export async function escreveArquivo(texto: string, callback): Promise<void> {
-  writeFile(ARQUIVO_DE_FILA, texto, 'utf8', function(err) {
-    if (err) {
-      return callback(err, null);
-    }
-
-    callback();
-  });
+export async function leArquivo():Promise<string>{
+  try{
+    const texto = await readFile(ARQUIVO_DE_FILA,'utf8');
+    return texto;
+  }
+  catch(err){
+    console.log(err);
+  }
 }
 
 export async function escreveNaFila(texto: string): Promise<void> {
-  leArquivo(function(error, textoAtual) {
-    if (error) {
-      console.log(error);
-      return;
-    }
-
+  try{
+    const textoAtual = await leArquivo();
     console.log('texto encontrado anteriormente no arquivo', textoAtual);
     const novoTexto = textoAtual ? `${textoAtual}\n${texto}` : texto;
-
-    escreveArquivo(novoTexto, function(error) {
-      if (error) {
-        console.log(error);
-        return;
-      }
-
+    try{
+      await escreveArquivo(novoTexto);
       console.log('texto escrito no arquivo');
-    })
-  });
+   }
+   catch(err){
+      console.log(err);
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
 }
 
-export async function consumirDaFila(): Promise<string> {
-  leArquivo(function(error, textoAtual) {
-    if (error) {
-      console.log(error);
-      return;
-    }
-
-    console.log('texto encontrado anteriormente no arquivo', textoAtual);
+ export async function consumirDaFila(): Promise<string> {
+  try{
+    const textoAtual = await leArquivo();
+    console.log('texto encontrado anteriormente no arquivo:\n', textoAtual);
     const [linhaConsumida, ...linhas] = textoAtual.split('\n');
-    console.log('======== linha consumida', linhaConsumida);
-
-    escreveArquivo(linhas.join('\n'), function(error) {
-      if (error) {
-        console.log(error);
-        return;
-      }
-
-      console.log('texto escrito no arquivo');
-    });
-  });
-
+    console.log('======== linha consumida:\n\t', linhaConsumida);
+    try{
+      await escreveArquivo(linhas.join('\n'));
+      console.log('texto escrito no arquivo\n');
+      return linhaConsumida;
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  catch(err){
+    console.log(err);
+  }  
   return '';
 }
