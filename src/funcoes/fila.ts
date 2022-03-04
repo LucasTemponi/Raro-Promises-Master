@@ -19,29 +19,29 @@ const ARQUIVO_DE_FILA = `${resolve('.')}/files/fila.txt`;
 
  export async function zerarAquivo(): Promise<void> {
    try{
-     await escreveArquivo('')
+     await escreveArquivo('');
    }
    catch(err){
-     console.log(err)
+     console.log(err);
    }
 }
 
 export async function escreveArquivo(texto: string): Promise<void> {
   try{
-    await writeFile(ARQUIVO_DE_FILA,texto)
+    await writeFile(ARQUIVO_DE_FILA,texto);
   }
   catch(err){
-      console.log(err)
+      console.log(err);
   }
 }
 
 export async function leArquivo():Promise<string>{
   try{
-    const texto = await readFile(ARQUIVO_DE_FILA,'utf8')
-    return texto
+    const texto = await readFile(ARQUIVO_DE_FILA,'utf8');
+    return texto;
   }
   catch(err){
-    console.log(err)
+    console.log(err);
   }
 }
 
@@ -51,35 +51,35 @@ export async function escreveNaFila(texto: string): Promise<void> {
     console.log('texto encontrado anteriormente no arquivo', textoAtual);
     const novoTexto = textoAtual ? `${textoAtual}\n${texto}` : texto;
     try{
-      await escreveArquivo(novoTexto)
-     console.log('texto escrito no arquivo');
+      await escreveArquivo(novoTexto);
+      console.log('texto escrito no arquivo');
    }
    catch(err){
-      console.log(err)
+      console.log(err);
     }
   }
   catch(err){
-    console.log(err)
+    console.log(err);
   }
 }
 
  export async function consumirDaFila(): Promise<string> {
   try{
-    const textoAtual = await leArquivo()
+    const textoAtual = await leArquivo();
     console.log('texto encontrado anteriormente no arquivo:\n', textoAtual);
     const [linhaConsumida, ...linhas] = textoAtual.split('\n');
     console.log('======== linha consumida:\n\t', linhaConsumida);
     try{
-      await escreveArquivo(linhas.join('\n'))
+      await escreveArquivo(linhas.join('\n'));
       console.log('texto escrito no arquivo\n');
       return linhaConsumida;
     }
     catch(err){
-      console.log(err)
+      console.log(err);
     }
   }
   catch(err){
-    console.log(err)
+    console.log(err);
   }  
-  return ''
+  return '';
 }
