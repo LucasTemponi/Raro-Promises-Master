@@ -12,6 +12,7 @@
  * @returns 
  */
 export const chunk = (valores: number[], tamanho: number): number[][] => {
+
   let i=0;
   let chunk:number[][] = [];
   const tamanhoValores:number = valores.length;
@@ -29,3 +30,4 @@ export const chunk = (valores: number[], tamanho: number): number[][] => {
   }
   return chunk;
 }
+
